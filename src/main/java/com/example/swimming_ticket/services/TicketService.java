@@ -2,7 +2,6 @@ package com.example.swimming_ticket.services;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,17 +25,12 @@ public class TicketService {
     public ResponseEntity<List<TicketResponse>> getAllTickets() {
         try {
             List<Ticket> tickets = ticketRepository.findAll();
-            List<TicketResponse> ticketData;
-            // if (tickets == null) {
-            //     ticketData = new ArrayList<>();
-            // } else {
-                ticketData = tickets.stream().map(ticket ->
-                    new TicketResponse(
-                        ticket.getName(),
-                        ticket.getTicketDate()
-                    )
-                ).collect(Collectors.toList());
-            // }
+            List<TicketResponse> ticketData = tickets.stream().map(ticket ->
+                new TicketResponse(
+                    ticket.getName(),
+                    ticket.getTicketDate()
+                )
+            ).collect(Collectors.toList());
 
             return ResponseEntity
                 .ok()
